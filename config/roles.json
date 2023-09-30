@@ -1,7 +1,4 @@
 {
-   "OWNER": 1,
-   "ADMIN": 2,
-   "DOCTOR": 3,
-   "COUNSELLOR": 4,
-   "NURSE": 5
+    "USER": 1,
+    "ADMIN": 2
 }

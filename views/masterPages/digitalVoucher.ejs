@@ -1,0 +1,134 @@
+<%- include('../layouts/partials/messages.ejs') %>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card card-body shadow">
+                <h4 class="text-center mb-3"><i class="bi bi-journal-arrow-down"></i> Create Digital Voucher</h4>
+                <form action="" method="POST" enctype="multipart/form-data" id="uploadForm">
+                    <div class="form-floating mb-3">
+                        <input autofocus type="text" class="form-control" name="po_number" id="po_number" required
+                            maxlength="25" placeholder="PO Number"
+                            value="<%= typeof rows.po_number !== 'undefined' ? rows.po_number : '' %>" />
+                        <label for="po_number">PO Number</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="voucher_number" id="voucher_number" required
+                            maxlength="25" placeholder="Voucher Number"
+                            value="<%= typeof rows.voucher_number !== 'undefined' ? rows.voucher_number : '' %>" />
+                        <label for="voucher_number">Voucher Number</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" required name="tax_invoice_number" maxlength="25"
+                            id="tax_invoice_number" placeholder="Tax Invoice Number"
+                            value="<%= typeof rows.tax_invoice_number !== 'undefined' ? rows.tax_invoice_number : '' %>" />
+                        <label for="tax_invoice_number">Tax Invoice Number</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <% if (rows.po_data) { %>
+                            <input type="file" class="form-control file" name="po_file" id="po_file"
+                                accept=".pdf, .doc, .docx" onchange="previewImage('po_file', 'show_img1')"
+                                value="<%= typeof rows.po_file !== 'undefined' ? rows.po_file : '' %>" />
+                            <% } else { %>
+                                <input type="file" class="form-control file" required name="po_file" id="po_file"
+                                    accept=".pdf, .doc, .docx" onchange="previewImage('po_file', 'show_img1')"
+                                    value="<%= typeof rows.po_file !== 'undefined' ? rows.po_file : '' %>" />
+                                <label for="po_file">Attach PO Doc (Max 5MB)</label>
+                                <% } %>
+
+                    </div>
+                    <a id="show_img1" href="/uploads/<%= rows.po_data %>">
+                        <%= rows.po_file ? rows.po_file : 'No file attached' %>
+                    </a>
+                    <div class="form-floating mb-3">
+                        <% if (rows.voucher_data) { %>
+                            <input type="file" class="form-control file" name="voucher_file" id="voucher_file"
+                                accept=".pdf, .doc, .docx" onchange="previewImage('voucher_file', 'show_img2')"
+                                value="<%= typeof rows.voucher_file !== 'undefined' ? rows.voucher_file : '' %>" />
+                            <% } else { %>
+                                <input type="file" class="form-control file" required name="voucher_file"
+                                    id="voucher_file" accept=".pdf, .doc, .docx"
+                                    onchange="previewImage('voucher_file', 'show_img2')"
+                                    value="<%= typeof rows.voucher_file !== 'undefined' ? rows.voucher_file : '' %>" />
+                                <label for="voucher_file">Attach Voucher Doc (Max 5MB)</label>
+                                <% } %>
+
+                    </div>
+                    <a id="show_img2" href="/uploads/<%= rows.voucher_data %>">
+                        <%= rows.voucher_file ? rows.voucher_file : 'No file attached' %>
+                    </a>
+                    <div class="form-floating mb-3">
+                        <% if (rows.tax_invoice_data ) { %>
+                            <input type="file" class="form-control file" name="tax_invoice_file" id="tax_invoice_file"
+                                accept=".pdf, .doc, .docx" onchange="previewImage('tax_invoice_file', 'show_img3')"
+                                value="<%= typeof rows.tax_invoice_file !== 'undefined' ? rows.tax_invoice_file : '' %>" />
+                            <% } else { %>
+                                <input type="file" class="form-control file" required name="tax_invoice_file"
+                                    id="tax_invoice_file" accept=".pdf, .doc, .docx"
+                                    onchange="previewImage('tax_invoice_file', 'show_img3')"
+                                    value="<%= typeof rows.tax_invoice_file !== 'undefined' ? rows.tax_invoice_file : '' %>" />
+                                <label for="tax_invoice_file">Attach Tax Invoice Doc (Max 5MB)</label>
+                                <% } %>
+
+                    </div>
+                    <a id="show_img3" href="/uploads/<%= rows.tax_invoice_data %>">
+                        <%= rows.tax_invoice_file ? rows.tax_invoice_file : 'No file attached' %>
+                    </a>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn bg-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function (event) {
+            const poFile = document.getElementById('po_file').files[0];
+            const voucherFile = document.getElementById('voucher_file').files[0];
+            const taxInvoiceFile = document.getElementById('tax_invoice_file').files[0];
+
+            if (poFile && poFile.size > 5 * 1024 * 1024) {
+                alert('PO Doc file size should be less than 5MB.');
+                event.preventDefault();
+                return;
+            }
+
+            if (voucherFile && voucherFile.size > 5 * 1024 * 1024) {
+                alert('Voucher Doc file size should be less than 5MB.');
+                event.preventDefault();
+                return;
+            }
+
+            if (taxInvoiceFile && taxInvoiceFile.size > 5 * 1024 * 1024) {
+                alert('Tax Invoice Doc file size should be less than 5MB.');
+                event.preventDefault();
+                return;
+            }
+        });
+
+
+
+        function previewImage(inputElem, previewElem) {
+            const file = document.querySelector(`#${inputElem}`).files;
+
+            // validate file size before preview
+            if (fileSizeValidation(inputElem, previewElem) === false) {
+                return;
+            }
+            if (fileTypeValidation(inputElem) === false) {
+                return;
+            }
+            if (file.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document
+                        .querySelector(`#${previewElem}`)
+                        .setAttribute('href', e.target.result);
+                };
+                reader.readAsDataURL(file[0]);
+                this.fileName = event.target.files[0].name;
+                console.log('this.fileName', this.fileName);
+            }
+        }
+
+    </script>

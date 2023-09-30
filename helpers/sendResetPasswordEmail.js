@@ -20,8 +20,8 @@ async function sendResetPasswordLink(req, res, next, email) {
       const emailOptions = {
          to: user.email,
          cc: '',
-         subject: 'Snehaanchal User - Reset your password',
-         text: `<h2>Use the link below to reset your password.</h2><br><a style="background-color: #66a3ff; color: white; padding: 1em 4em;text-decoration:none; border-radius: 10px" href="${host.PROTOCOL}://${host.HOST}:${host.PORT}/users/forgotPassword/${token}"> Click here to reset password.</a>.<br><br>The link is valid only for 2 hours.<br>The link will work only once.<br><br><strong>Snehaanchal Team</strong>`,
+         subject: 'Dinshaws Software User - Reset your password',
+         text: `<h2>Use the link below to reset your password.</h2><br><a style="background-color: #66a3ff; color: white; padding: 1em 4em;text-decoration:none; border-radius: 10px" href="${host.PROTOCOL}://${host.HOST}:${host.PORT}/users/forgotPassword/${token}"> Click here to reset password.</a>.<br><br>The link is valid only for 2 hours.<br>The link will work only once.<br><br><strong>Dinshaws Software Team</strong>`,
       };
       sendEmails(emailOptions);
       user.reset_key = token;
