@@ -1290,3 +1290,9 @@ TypeError: Cannot destructure property 'originalname1' of 'req.file' as it is un
 [9/30/2023, 5:54:11 PM] info: Connection to DB established successfully.
 [9/30/2023, 5:54:14 PM] info: Connection to DB established successfully.
 [9/30/2023, 5:54:37 PM] info: Connection to DB established successfully.
+[10/3/2023, 6:24:04 PM] info: Connection to DB established successfully.
+[10/3/2023, 6:26:15 PM] info: Connection to DB established successfully.
+[10/3/2023, 6:26:51 PM] info: Connection to DB established successfully.
+[10/4/2023, 4:36:48 PM] info: Connection to DB established successfully.
+[10/4/2023, 4:39:57 PM] info: Activation Email sent to: pardhijitendra7694@gmail.com
+[10/4/2023, 4:40:04 PM] info: Message sent: %s
