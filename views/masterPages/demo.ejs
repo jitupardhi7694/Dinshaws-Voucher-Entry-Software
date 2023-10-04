@@ -23,37 +23,55 @@
                         <label for="tax_invoice_number">Tax Invoice Number</label>
                     </div>
                     <div class="form-floating mb-3">
-
-
-                        <input type="file" class="form-control file" required name="po_file" id="po_file"
-                            accept=".pdf, .doc, .docx" onchange="previewImage('po_file', 'show_img1')"
-                            value="<%= typeof rows.po_file !== 'undefined' ? rows.po_file : '' %>" />
-                        <label for="po_file">Attach PO Doc (Max 5MB)</label>
-
+                        <% if (rows.po_data) { %>
+                            <input type="file" class="form-control file" name="po_file" id="po_file"
+                                accept=".pdf, .doc, .docx" onchange="previewImage('po_file', 'show_img1')"
+                                value="<%= typeof rows.po_file !== 'undefined' ? rows.po_file : '' %>" />
+                            <% } else { %>
+                                <input type="file" class="form-control file" required name="po_file" id="po_file"
+                                    accept=".pdf, .doc, .docx" onchange="previewImage('po_file', 'show_img1')"
+                                    value="<%= typeof rows.po_file !== 'undefined' ? rows.po_file : '' %>" />
+                                <label for="po_file">Attach PO Doc (Max 5MB)</label>
+                                <% } %>
 
                     </div>
-
+                    <a id="show_img1" href="/uploads/<%= rows.po_data %>">
+                        <%= rows.po_file ? rows.po_file : 'No file attached' %>
+                    </a>
                     <div class="form-floating mb-3">
-
-                        <input type="file" class="form-control file" required name="voucher_file" id="voucher_file"
-                            accept=".pdf, .doc, .docx" onchange="previewImage('voucher_file', 'show_img2')"
-                            value="<%= typeof rows.voucher_file !== 'undefined' ? rows.voucher_file : '' %>" />
-                        <label for="voucher_file">Attach Voucher Doc (Max 5MB)</label>
-
+                        <% if (rows.voucher_data) { %>
+                            <input type="file" class="form-control file" name="voucher_file" id="voucher_file"
+                                accept=".pdf, .doc, .docx" onchange="previewImage('voucher_file', 'show_img2')"
+                                value="<%= typeof rows.voucher_file !== 'undefined' ? rows.voucher_file : '' %>" />
+                            <% } else { %>
+                                <input type="file" class="form-control file" required name="voucher_file"
+                                    id="voucher_file" accept=".pdf, .doc, .docx"
+                                    onchange="previewImage('voucher_file', 'show_img2')"
+                                    value="<%= typeof rows.voucher_file !== 'undefined' ? rows.voucher_file : '' %>" />
+                                <label for="voucher_file">Attach Voucher Doc (Max 5MB)</label>
+                                <% } %>
 
                     </div>
-
+                    <a id="show_img2" href="/uploads/<%= rows.voucher_data %>">
+                        <%= rows.voucher_file ? rows.voucher_file : 'No file attached' %>
+                    </a>
                     <div class="form-floating mb-3">
-
-                        <input type="file" class="form-control file" required name="tax_invoice_file"
-                            id="tax_invoice_file" accept=".pdf, .doc, .docx"
-                            onchange="previewImage('tax_invoice_file', 'show_img3')"
-                            value="<%= typeof rows.tax_invoice_file !== 'undefined' ? rows.tax_invoice_file : '' %>" />
-                        <label for="tax_invoice_file">Attach Tax Invoice Doc (Max 5MB)</label>
-
+                        <% if (rows.tax_invoice_data ) { %>
+                            <input type="file" class="form-control file" name="tax_invoice_file" id="tax_invoice_file"
+                                accept=".pdf, .doc, .docx" onchange="previewImage('tax_invoice_file', 'show_img3')"
+                                value="<%= typeof rows.tax_invoice_file !== 'undefined' ? rows.tax_invoice_file : '' %>" />
+                            <% } else { %>
+                                <input type="file" class="form-control file" required name="tax_invoice_file"
+                                    id="tax_invoice_file" accept=".pdf, .doc, .docx"
+                                    onchange="previewImage('tax_invoice_file', 'show_img3')"
+                                    value="<%= typeof rows.tax_invoice_file !== 'undefined' ? rows.tax_invoice_file : '' %>" />
+                                <label for="tax_invoice_file">Attach Tax Invoice Doc (Max 5MB)</label>
+                                <% } %>
 
                     </div>
-
+                    <a id="show_img3" href="/uploads/<%= rows.tax_invoice_data %>">
+                        <%= rows.tax_invoice_file ? rows.tax_invoice_file : 'No file attached' %>
+                    </a>
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn bg-primary">Submit</button>
                     </div>
